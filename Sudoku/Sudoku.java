@@ -9,10 +9,12 @@ public class Sudoku {
         //https://stackoverflow.com/questions/54174625/i-want-to-have-two-arrays-to-have-the-same-values#:~:text=If%20you%20want%20two%20different,arrayCopy()%20for%20better%20performance!
         int[] problem = Arrays.copyOf(solution, solution.length);
 
-        int difficulty = 1;
+        Scanner myObj = new Scanner(System.in);
+        System.out.println("Choose Difficulty\nEasy/Medium/Hard");
+        String difficulty = myObj.nextLine();
 
-        if (difficulty == 1){
 
+        if (difficulty.equals("easy")){
             for(int i=0;i<2;i++) {
                 int replaceRandom = (int) (Math.random() * 81);
                 problem[replaceRandom] = 0;
@@ -22,7 +24,7 @@ public class Sudoku {
         }
         //https://youtu.be/CFLDt6U9SeM
         while(Arrays.stream(problem).anyMatch(element -> element == 0)) {
-            Scanner myObj = new Scanner(System.in);
+
             System.out.println("enter which position you would like to change");
             int changePosition = Integer.parseInt(myObj.nextLine());
 
