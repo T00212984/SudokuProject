@@ -1,11 +1,15 @@
 package Sudoku;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.plaf.FontUIResource;
 import javax.swing.text.StyleContext;
 import java.awt.*;
 import java.awt.event.*;
 import java.security.Key;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.TimerTask;
@@ -19,30 +23,16 @@ public class SudokuGUI {
     private JPanel bottomField;
     private JButton scoreButton;
     private JPanel gamePanel;
-    private JPanel numPad;
     private JButton numPad1;
-    private JButton numPad4;
-    private JButton numPad7;
-    private JButton numPad3;
-    private JButton numPad6;
-    private JButton numPad9;
-    private JButton numPad2;
-    private JButton numPad5;
-    private JButton numPad8;
     private JLabel difficultyLabel;
     private JButton easyButton;
     private JButton mediumButton;
     private JButton hardButton;
+    private JLabel mistakeCounter;
 
     public SudokuGUI() {
         $$$setupUI$$$();
         scoreButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
-        numPad1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
@@ -60,23 +50,23 @@ public class SudokuGUI {
             public void actionPerformed(ActionEvent e) {
                 difficulty = 2;
                 createUIComponents();
+
             }
         });
         hardButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 difficulty = 3;
+                //not working
+                gamePanel.removeAll();
+                gamePanel.updateUI();
+                gamePanel.revalidate();
+                gamePanel.repaint();
+                gamePanel = new JPanel();
+                gamePanel.setVisible(true);
+                gamePanel.setSize(400, 400);
                 createUIComponents();
-            }
-        });
-        numPad1.addKeyListener(new KeyAdapter() {
-        });
-        numPad1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == numPad1) {
-                    
-                }
+
             }
         });
 
@@ -109,6 +99,7 @@ public class SudokuGUI {
         createUIComponents();
         board = new JPanel();
         board.setLayout(new BorderLayout(0, 0));
+        board.setBackground(new Color(-1));
         header = new JPanel();
         header.setLayout(new GridBagLayout());
         board.add(header, BorderLayout.NORTH);
@@ -121,35 +112,23 @@ public class SudokuGUI {
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.WEST;
-        gbc.insets = new Insets(20, 0, 0, 0);
+        gbc.insets = new Insets(20, 0, 20, 0);
         header.add(title, gbc);
-        final JPanel spacer1 = new JPanel();
-        gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 0;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        header.add(spacer1, gbc);
-        final JPanel spacer2 = new JPanel();
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        gbc.fill = GridBagConstraints.VERTICAL;
-        header.add(spacer2, gbc);
         bottomField = new JPanel();
         bottomField.setLayout(new GridBagLayout());
         board.add(bottomField, BorderLayout.SOUTH);
-        final JPanel spacer3 = new JPanel();
+        final JPanel spacer1 = new JPanel();
         gbc = new GridBagConstraints();
         gbc.gridx = 4;
         gbc.gridy = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        bottomField.add(spacer3, gbc);
-        final JPanel spacer4 = new JPanel();
+        bottomField.add(spacer1, gbc);
+        final JPanel spacer2 = new JPanel();
         gbc = new GridBagConstraints();
         gbc.gridx = 3;
         gbc.gridy = 2;
         gbc.fill = GridBagConstraints.VERTICAL;
-        bottomField.add(spacer4, gbc);
+        bottomField.add(spacer2, gbc);
         difficultyLabel = new JLabel();
         difficultyLabel.setText("Difficulty");
         gbc = new GridBagConstraints();
@@ -187,72 +166,6 @@ public class SudokuGUI {
         gbc.insets = new Insets(0, 0, 30, 0);
         bottomField.add(scoreButton, gbc);
         board.add(gamePanel, BorderLayout.CENTER);
-        numPad = new JPanel();
-        numPad.setLayout(new GridBagLayout());
-        board.add(numPad, BorderLayout.EAST);
-        numPad1 = new JButton();
-        numPad1.setText("1");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        numPad.add(numPad1, gbc);
-        numPad4 = new JButton();
-        numPad4.setText("4");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        numPad.add(numPad4, gbc);
-        numPad7 = new JButton();
-        numPad7.setText("7");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        numPad.add(numPad7, gbc);
-        numPad3 = new JButton();
-        numPad3.setText("3");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 2;
-        gbc.gridy = 0;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        numPad.add(numPad3, gbc);
-        numPad6 = new JButton();
-        numPad6.setText("6");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 2;
-        gbc.gridy = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        numPad.add(numPad6, gbc);
-        numPad9 = new JButton();
-        numPad9.setText("9");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 2;
-        gbc.gridy = 2;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        numPad.add(numPad9, gbc);
-        numPad2 = new JButton();
-        numPad2.setText("2");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 0;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        numPad.add(numPad2, gbc);
-        numPad8 = new JButton();
-        numPad8.setText("8");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 2;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        numPad.add(numPad8, gbc);
-        numPad5 = new JButton();
-        numPad5.setText("5");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        numPad.add(numPad5, gbc);
     }
 
     /**
@@ -284,23 +197,19 @@ public class SudokuGUI {
         return board;
     }
 
+    ArrayList<JTextField> textFields = new ArrayList<>();
+
     private void createUIComponents() {
         // TODO: place custom component creation code here
+
         //numPad1.addActionListener(gamePanel.getActionForKeyStroke());
         int[] solution = {4, 8, 9, 6, 7, 2, 3, 5, 1, 3, 1, 6, 5, 4, 9, 2, 8, 7, 7, 5, 2, 8, 3, 1, 4, 6, 9, 2, 3, 8, 1, 5, 7, 9, 4, 6, 5, 4, 7, 3, 9, 6, 1, 2, 8, 6, 9, 1, 2, 8, 4, 5, 7, 3, 1, 6, 5, 9, 2, 8, 7, 3, 4, 9, 2, 4, 7, 6, 3, 8, 1, 5, 8, 7, 3, 4, 1, 5, 6, 9, 2};
         //https://stackoverflow.com/questions/54174625/i-want-to-have-two-arrays-to-have-the-same-values#:~:text=If%20you%20want%20two%20different,arrayCopy()%20for%20better%20performance!
         int[] problem = Arrays.copyOf(solution, solution.length);
 
-        //gamePanel = new JPanel();
-        //gamePanel.removeAll();
-        //gamePanel.updateUI();
-        //gamePanel.revalidate();
-        //gamePanel.repaint();
-
-
         int tilesRemoved = 0;
         if (difficulty == 1) {
-            tilesRemoved = 4;
+            tilesRemoved = 5;
         } else if (difficulty == 2) {
             tilesRemoved = 10;
         } else if (difficulty == 3) {
@@ -322,12 +231,41 @@ public class SudokuGUI {
             System.out.println("Number solution " + solution[replaceRandom]);
 
         }
-        for (int i = 1; i <= 81; i++) {
-            if (Integer.parseInt(String.valueOf(problem[i - 1])) == 0) {
 
-                gamePanel.add(new JTextField());
+        for (int i = 0; i <= 80; i++) {
+            if (Integer.parseInt(String.valueOf(problem[i])) == 0) {
+                JTextField blankTile = new JTextField();
+
+                textFields.add(blankTile);
+                Arrays.sort(orderRemoved);
+                int number = i;
+                //https://stackoverflow.com/questions/3953208/value-change-listener-to-jtextfield
+                blankTile.getDocument().addDocumentListener(new DocumentListener() {
+                    public void changedUpdate(DocumentEvent e) {
+                        check(number);
+                    }
+
+                    public void removeUpdate(DocumentEvent e) {
+                        //check(number);
+                    }
+
+                    public void insertUpdate(DocumentEvent e) {
+                        check(number);
+                    }
+
+                    public void check(int number) {
+                        if (Integer.parseInt(blankTile.getText()) == solution[number]) {
+                            blankTile.setBackground(Color.WHITE);
+                        } else {
+
+                            blankTile.setBackground(Color.RED);
+                        }
+                    }
+                });
+
+                gamePanel.add(blankTile);
             } else {
-                gamePanel.add(new JLabel(String.valueOf(problem[i - 1])));
+                gamePanel.add(new JLabel(String.valueOf(problem[i])));
             }
             //JTextField blankTile = new JTextField();
         }

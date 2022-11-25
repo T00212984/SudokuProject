@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="02168295-1f71-4ac8-83b5-1122dd7cb143" name="Changes" comment="project">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sudoku/Sudoku.java" beforeDir="false" afterPath="$PROJECT_DIR$/Sudoku/Sudoku.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sudoku/SudokuGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/Sudoku/SudokuGUI.form" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Sudoku/SudokuGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/Sudoku/SudokuGUI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -83,7 +83,7 @@
       <updated>1667931885829</updated>
       <workItem from="1667931887201" duration="4290000" />
       <workItem from="1669266034339" duration="499000" />
-      <workItem from="1669353563191" duration="29068000" />
+      <workItem from="1669353563191" duration="37500000" />
     </task>
     <task id="LOCAL-00001" summary="project">
       <created>1667942609241</created>
@@ -113,7 +113,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669373750939</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="project">
+      <created>1669383385227</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1669383385227</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -139,7 +146,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/Sudoku/SudokuGUI.java</url>
-          <line>12</line>
+          <line>16</line>
           <option name="timeStamp" value="15" />
         </line-breakpoint>
       </breakpoints>
