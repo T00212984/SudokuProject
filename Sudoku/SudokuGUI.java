@@ -1,18 +1,15 @@
 package Sudoku;
 
 import javax.swing.*;
-import javax.swing.border.TitledBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.plaf.FontUIResource;
 import javax.swing.text.StyleContext;
 import java.awt.*;
 import java.awt.event.*;
-import java.security.Key;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
-import java.util.TimerTask;
 
 public class SudokuGUI {
 
@@ -23,12 +20,11 @@ public class SudokuGUI {
     private JPanel bottomField;
     private JButton scoreButton;
     private JPanel gamePanel;
-    private JButton numPad1;
     private JLabel difficultyLabel;
     private JButton easyButton;
     private JButton mediumButton;
     private JButton hardButton;
-    private JLabel mistakeCounter;
+    private JLabel counter;
 
     public SudokuGUI() {
         $$$setupUI$$$();
@@ -119,52 +115,59 @@ public class SudokuGUI {
         board.add(bottomField, BorderLayout.SOUTH);
         final JPanel spacer1 = new JPanel();
         gbc = new GridBagConstraints();
-        gbc.gridx = 4;
+        gbc.gridx = 5;
         gbc.gridy = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         bottomField.add(spacer1, gbc);
         final JPanel spacer2 = new JPanel();
         gbc = new GridBagConstraints();
-        gbc.gridx = 3;
+        gbc.gridx = 4;
         gbc.gridy = 2;
         gbc.fill = GridBagConstraints.VERTICAL;
         bottomField.add(spacer2, gbc);
         difficultyLabel = new JLabel();
         difficultyLabel.setText("Difficulty");
         gbc = new GridBagConstraints();
-        gbc.gridx = 1;
+        gbc.gridx = 2;
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.WEST;
         bottomField.add(difficultyLabel, gbc);
         hardButton = new JButton();
         hardButton.setText("Hard");
         gbc = new GridBagConstraints();
-        gbc.gridx = 2;
+        gbc.gridx = 3;
         gbc.gridy = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         bottomField.add(hardButton, gbc);
         easyButton = new JButton();
         easyButton.setText("Easy");
         gbc = new GridBagConstraints();
-        gbc.gridx = 0;
+        gbc.gridx = 1;
         gbc.gridy = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         bottomField.add(easyButton, gbc);
         mediumButton = new JButton();
         mediumButton.setText("Medium");
         gbc = new GridBagConstraints();
-        gbc.gridx = 1;
+        gbc.gridx = 2;
         gbc.gridy = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         bottomField.add(mediumButton, gbc);
         scoreButton = new JButton();
         scoreButton.setText("Save Score");
         gbc = new GridBagConstraints();
-        gbc.gridx = 5;
+        gbc.gridx = 6;
         gbc.gridy = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(0, 0, 30, 0);
         bottomField.add(scoreButton, gbc);
+        counter = new JLabel();
+        counter.setText("counter");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.anchor = GridBagConstraints.WEST;
+        bottomField.add(counter, gbc);
         board.add(gamePanel, BorderLayout.CENTER);
     }
 
@@ -208,6 +211,8 @@ public class SudokuGUI {
         int[] problem = Arrays.copyOf(solution, solution.length);
 
         int tilesRemoved = 0;
+
+
         if (difficulty == 1) {
             tilesRemoved = 5;
         } else if (difficulty == 2) {
@@ -215,7 +220,7 @@ public class SudokuGUI {
         } else if (difficulty == 3) {
             tilesRemoved = 20;
         }
-        int missingNumbers[] = new int[tilesRemoved];
+
         int orderRemoved[] = new int[tilesRemoved];
         gamePanel = new JPanel();
         gamePanel.setLayout(new GridLayout(9, 9));
@@ -224,12 +229,6 @@ public class SudokuGUI {
             int replaceRandom = (int) (Math.random() * 81);
             problem[replaceRandom] = 0;
             orderRemoved[i] = replaceRandom;
-            missingNumbers[i] = solution[replaceRandom];
-            System.out.println(Arrays.toString(missingNumbers));
-            System.out.println(Arrays.toString(orderRemoved));
-            System.out.println("Blank position " + (replaceRandom + 1));
-            System.out.println("Number solution " + solution[replaceRandom]);
-
         }
 
         for (int i = 0; i <= 80; i++) {
@@ -256,8 +255,8 @@ public class SudokuGUI {
                     public void check(int number) {
                         if (Integer.parseInt(blankTile.getText()) == solution[number]) {
                             blankTile.setBackground(Color.WHITE);
+                                //JOptionPane.showMessageDialog(null, "You Won!", "Congratulations", JOptionPane.INFORMATION_MESSAGE);
                         } else {
-
                             blankTile.setBackground(Color.RED);
                         }
                     }
@@ -267,9 +266,22 @@ public class SudokuGUI {
             } else {
                 gamePanel.add(new JLabel(String.valueOf(problem[i])));
             }
-            //JTextField blankTile = new JTextField();
+
         }
 
 
+
+        /*
+        Timer timer = new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int seconds = 0;
+                seconds++;
+                counter.setText("" + seconds);
+            }
+
+        });
+        */
     }
+
 }

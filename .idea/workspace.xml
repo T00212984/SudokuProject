@@ -83,7 +83,7 @@
       <updated>1667931885829</updated>
       <workItem from="1667931887201" duration="4290000" />
       <workItem from="1669266034339" duration="499000" />
-      <workItem from="1669353563191" duration="37500000" />
+      <workItem from="1669353563191" duration="40225000" />
     </task>
     <task id="LOCAL-00001" summary="project">
       <created>1667942609241</created>
@@ -120,7 +120,21 @@
       <option name="project" value="LOCAL" />
       <updated>1669383385227</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="project">
+      <created>1669392165321</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1669392165321</updated>
+    </task>
+    <task id="LOCAL-00007" summary="project">
+      <created>1669392186613</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1669392186613</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -140,16 +154,5 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="project" />
     <option name="LAST_COMMIT_MESSAGE" value="project" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/Sudoku/SudokuGUI.java</url>
-          <line>16</line>
-          <option name="timeStamp" value="15" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
