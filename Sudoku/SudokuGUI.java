@@ -4,10 +4,11 @@ import javax.swing.*;
 import javax.swing.plaf.FontUIResource;
 import javax.swing.text.StyleContext;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
+import java.security.Key;
 import java.util.Arrays;
 import java.util.Locale;
+import java.util.TimerTask;
 
 public class SudokuGUI {
 
@@ -68,6 +69,17 @@ public class SudokuGUI {
                 createUIComponents();
             }
         });
+        numPad1.addKeyListener(new KeyAdapter() {
+        });
+        numPad1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (e.getSource() == numPad1) {
+                    
+                }
+            }
+        });
+
     }
 
     public static void main(String[] args) {
@@ -274,61 +286,52 @@ public class SudokuGUI {
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
+        //numPad1.addActionListener(gamePanel.getActionForKeyStroke());
         int[] solution = {4, 8, 9, 6, 7, 2, 3, 5, 1, 3, 1, 6, 5, 4, 9, 2, 8, 7, 7, 5, 2, 8, 3, 1, 4, 6, 9, 2, 3, 8, 1, 5, 7, 9, 4, 6, 5, 4, 7, 3, 9, 6, 1, 2, 8, 6, 9, 1, 2, 8, 4, 5, 7, 3, 1, 6, 5, 9, 2, 8, 7, 3, 4, 9, 2, 4, 7, 6, 3, 8, 1, 5, 8, 7, 3, 4, 1, 5, 6, 9, 2};
         //https://stackoverflow.com/questions/54174625/i-want-to-have-two-arrays-to-have-the-same-values#:~:text=If%20you%20want%20two%20different,arrayCopy()%20for%20better%20performance!
         int[] problem = Arrays.copyOf(solution, solution.length);
-        //gamePanel.updateUI();
-        //gamePanel.removeAll();
 
+        //gamePanel = new JPanel();
+        //gamePanel.removeAll();
+        //gamePanel.updateUI();
+        //gamePanel.revalidate();
+        //gamePanel.repaint();
+
+
+        int tilesRemoved = 0;
         if (difficulty == 1) {
-            for (int i = 0; i < 2; i++) {
-                int replaceRandom = (int) (Math.random() * 81);
-                problem[replaceRandom] = 0;
-                System.out.println("Blank position " + (replaceRandom + 1));
-                System.out.println("Number solution " + solution[replaceRandom]);
-            }
-            gamePanel = new JPanel();
-            gamePanel.setLayout(new GridLayout(9, 9));
-            for (int i = 1; i <= 81; i++) {
-                if (Integer.parseInt(String.valueOf(problem[i - 1])) == 0) {
-                    gamePanel.add(new JTextField());
-                } else {
-                    gamePanel.add(new JLabel(String.valueOf(problem[i - 1])));
-                }
-            }
+            tilesRemoved = 4;
         } else if (difficulty == 2) {
-            for (int i = 0; i < 5; i++) {
-                int replaceRandom = (int) (Math.random() * 81);
-                problem[replaceRandom] = 0;
-                System.out.println("Blank position " + (replaceRandom + 1));
-                System.out.println("Number solution " + solution[replaceRandom]);
-            }
-            gamePanel.setLayout(new GridLayout(9, 9));
-            for (int i = 1; i <= 81; i++) {
-                if (Integer.parseInt(String.valueOf(problem[i - 1])) == 0) {
-                    gamePanel.add(new JTextField());
-                } else {
-                    gamePanel.add(new JLabel(String.valueOf(problem[i - 1])));
-                }
-            }
+            tilesRemoved = 10;
         } else if (difficulty == 3) {
-            for (int i = 0; i < 19; i++) {
-                int replaceRandom = (int) (Math.random() * 81);
-                problem[replaceRandom] = 0;
-                System.out.println("Blank position " + (replaceRandom + 1));
-                System.out.println("Number solution " + solution[replaceRandom]);
-            }
-            gamePanel = new JPanel();
-            gamePanel.setLayout(new GridLayout(9, 9));
-            for (int i = 1; i <= 81; i++) {
-                if (Integer.parseInt(String.valueOf(problem[i - 1])) == 0) {
-                    gamePanel.add(new JButton());
-                } else {
-                    gamePanel.add(new JButton(String.valueOf(problem[i - 1])));
-                }
-            }
+            tilesRemoved = 20;
+        }
+        int missingNumbers[] = new int[tilesRemoved];
+        int orderRemoved[] = new int[tilesRemoved];
+        gamePanel = new JPanel();
+        gamePanel.setLayout(new GridLayout(9, 9));
+
+        for (int i = 0; i < tilesRemoved; i++) {
+            int replaceRandom = (int) (Math.random() * 81);
+            problem[replaceRandom] = 0;
+            orderRemoved[i] = replaceRandom;
+            missingNumbers[i] = solution[replaceRandom];
+            System.out.println(Arrays.toString(missingNumbers));
+            System.out.println(Arrays.toString(orderRemoved));
+            System.out.println("Blank position " + (replaceRandom + 1));
+            System.out.println("Number solution " + solution[replaceRandom]);
 
         }
+        for (int i = 1; i <= 81; i++) {
+            if (Integer.parseInt(String.valueOf(problem[i - 1])) == 0) {
+
+                gamePanel.add(new JTextField());
+            } else {
+                gamePanel.add(new JLabel(String.valueOf(problem[i - 1])));
+            }
+            //JTextField blankTile = new JTextField();
+        }
+
 
     }
 }
