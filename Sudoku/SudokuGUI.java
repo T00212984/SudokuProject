@@ -221,14 +221,12 @@ public class SudokuGUI {
             tilesRemoved = 20;
         }
 
-        int orderRemoved[] = new int[tilesRemoved];
         gamePanel = new JPanel();
         gamePanel.setLayout(new GridLayout(9, 9));
 
         for (int i = 0; i < tilesRemoved; i++) {
             int replaceRandom = (int) (Math.random() * 81);
             problem[replaceRandom] = 0;
-            orderRemoved[i] = replaceRandom;
         }
 
         for (int i = 0; i <= 80; i++) {
@@ -236,7 +234,6 @@ public class SudokuGUI {
                 JTextField blankTile = new JTextField();
 
                 textFields.add(blankTile);
-                Arrays.sort(orderRemoved);
                 int number = i;
                 //https://stackoverflow.com/questions/3953208/value-change-listener-to-jtextfield
                 blankTile.getDocument().addDocumentListener(new DocumentListener() {
