@@ -10,13 +10,12 @@ import java.util.Arrays;
 import java.util.Locale;
 
 public class SudokuGUI {
-    private JPanel board;
 
-    private JPanel game;
+    private int difficulty = 1;
+    private JPanel board;
     private JPanel header;
     private JLabel title;
     private JPanel bottomField;
-    private JButton newGameButton;
     private JButton scoreButton;
     private JPanel gamePanel;
     private JPanel numPad;
@@ -29,8 +28,10 @@ public class SudokuGUI {
     private JButton numPad2;
     private JButton numPad5;
     private JButton numPad8;
-
-    private JButton numberButton;
+    private JLabel difficultyLabel;
+    private JButton easyButton;
+    private JButton mediumButton;
+    private JButton hardButton;
 
     public SudokuGUI() {
         $$$setupUI$$$();
@@ -44,6 +45,27 @@ public class SudokuGUI {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+            }
+        });
+        easyButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                difficulty = 1;
+                createUIComponents();
+            }
+        });
+        mediumButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                difficulty = 2;
+                createUIComponents();
+            }
+        });
+        hardButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                difficulty = 3;
+                createUIComponents();
             }
         });
     }
@@ -104,30 +126,51 @@ public class SudokuGUI {
         bottomField = new JPanel();
         bottomField.setLayout(new GridBagLayout());
         board.add(bottomField, BorderLayout.SOUTH);
-        newGameButton = new JButton();
-        newGameButton.setText("New Game");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.insets = new Insets(0, 0, 30, 0);
-        bottomField.add(newGameButton, gbc);
         final JPanel spacer3 = new JPanel();
         gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 0;
+        gbc.gridx = 4;
+        gbc.gridy = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         bottomField.add(spacer3, gbc);
         final JPanel spacer4 = new JPanel();
         gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 1;
+        gbc.gridx = 3;
+        gbc.gridy = 2;
         gbc.fill = GridBagConstraints.VERTICAL;
         bottomField.add(spacer4, gbc);
+        difficultyLabel = new JLabel();
+        difficultyLabel.setText("Difficulty");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.WEST;
+        bottomField.add(difficultyLabel, gbc);
+        hardButton = new JButton();
+        hardButton.setText("Hard");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 2;
+        gbc.gridy = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        bottomField.add(hardButton, gbc);
+        easyButton = new JButton();
+        easyButton.setText("Easy");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        bottomField.add(easyButton, gbc);
+        mediumButton = new JButton();
+        mediumButton.setText("Medium");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        bottomField.add(mediumButton, gbc);
         scoreButton = new JButton();
         scoreButton.setText("Save Score");
         gbc = new GridBagConstraints();
-        gbc.gridx = 2;
-        gbc.gridy = 0;
+        gbc.gridx = 5;
+        gbc.gridy = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(0, 0, 30, 0);
         bottomField.add(scoreButton, gbc);
@@ -231,33 +274,61 @@ public class SudokuGUI {
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
-        gamePanel = new JPanel();
-        gamePanel.setLayout(new GridLayout(9, 9));
-        for (int i = 1; i <= 81; i++) {
-            gamePanel.add(new JButton());
-        }
-        newGameButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int[] solution = {4, 8, 9, 6, 7, 2, 3, 5, 1, 3, 1, 6, 5, 4, 9, 2, 8, 7, 7, 5, 2, 8, 3, 1, 4, 6, 9, 2, 3, 8, 1, 5, 7, 9, 4, 6, 5, 4, 7, 3, 9, 6, 1, 2, 8, 6, 9, 1, 2, 8, 4, 5, 7, 3, 1, 6, 5, 9, 2, 8, 7, 3, 4, 9, 2, 4, 7, 6, 3, 8, 1, 5, 8, 7, 3, 4, 1, 5, 6, 9, 2};
-                //https://stackoverflow.com/questions/54174625/i-want-to-have-two-arrays-to-have-the-same-values#:~:text=If%20you%20want%20two%20different,arrayCopy()%20for%20better%20performance!
-                int[] problem = Arrays.copyOf(solution, solution.length);
+        int[] solution = {4, 8, 9, 6, 7, 2, 3, 5, 1, 3, 1, 6, 5, 4, 9, 2, 8, 7, 7, 5, 2, 8, 3, 1, 4, 6, 9, 2, 3, 8, 1, 5, 7, 9, 4, 6, 5, 4, 7, 3, 9, 6, 1, 2, 8, 6, 9, 1, 2, 8, 4, 5, 7, 3, 1, 6, 5, 9, 2, 8, 7, 3, 4, 9, 2, 4, 7, 6, 3, 8, 1, 5, 8, 7, 3, 4, 1, 5, 6, 9, 2};
+        //https://stackoverflow.com/questions/54174625/i-want-to-have-two-arrays-to-have-the-same-values#:~:text=If%20you%20want%20two%20different,arrayCopy()%20for%20better%20performance!
+        int[] problem = Arrays.copyOf(solution, solution.length);
+        //gamePanel.updateUI();
+        //gamePanel.removeAll();
 
-                for (int i = 0; i < 2; i++) {
-                    int replaceRandom = (int) (Math.random() * 81);
-                    problem[replaceRandom] = 0;
-                    System.out.println("Blank position " + (replaceRandom + 1));
-                    System.out.println("Number solution " + solution[replaceRandom]);
-                }
-
-                for (int i = 1; i <= 81; i++) {
-                    if (Integer.parseInt(String.valueOf(problem[i - 1])) == 0) {
-                        gamePanel.add(new JButton());
-                    } else {
-                        gamePanel.add(new JButton(String.valueOf(problem[i - 1])));
-                    }
+        if (difficulty == 1) {
+            for (int i = 0; i < 2; i++) {
+                int replaceRandom = (int) (Math.random() * 81);
+                problem[replaceRandom] = 0;
+                System.out.println("Blank position " + (replaceRandom + 1));
+                System.out.println("Number solution " + solution[replaceRandom]);
+            }
+            gamePanel = new JPanel();
+            gamePanel.setLayout(new GridLayout(9, 9));
+            for (int i = 1; i <= 81; i++) {
+                if (Integer.parseInt(String.valueOf(problem[i - 1])) == 0) {
+                    gamePanel.add(new JTextField());
+                } else {
+                    gamePanel.add(new JLabel(String.valueOf(problem[i - 1])));
                 }
             }
-        });
+        } else if (difficulty == 2) {
+            for (int i = 0; i < 5; i++) {
+                int replaceRandom = (int) (Math.random() * 81);
+                problem[replaceRandom] = 0;
+                System.out.println("Blank position " + (replaceRandom + 1));
+                System.out.println("Number solution " + solution[replaceRandom]);
+            }
+            gamePanel.setLayout(new GridLayout(9, 9));
+            for (int i = 1; i <= 81; i++) {
+                if (Integer.parseInt(String.valueOf(problem[i - 1])) == 0) {
+                    gamePanel.add(new JTextField());
+                } else {
+                    gamePanel.add(new JLabel(String.valueOf(problem[i - 1])));
+                }
+            }
+        } else if (difficulty == 3) {
+            for (int i = 0; i < 19; i++) {
+                int replaceRandom = (int) (Math.random() * 81);
+                problem[replaceRandom] = 0;
+                System.out.println("Blank position " + (replaceRandom + 1));
+                System.out.println("Number solution " + solution[replaceRandom]);
+            }
+            gamePanel = new JPanel();
+            gamePanel.setLayout(new GridLayout(9, 9));
+            for (int i = 1; i <= 81; i++) {
+                if (Integer.parseInt(String.valueOf(problem[i - 1])) == 0) {
+                    gamePanel.add(new JButton());
+                } else {
+                    gamePanel.add(new JButton(String.valueOf(problem[i - 1])));
+                }
+            }
+
+        }
+
     }
 }

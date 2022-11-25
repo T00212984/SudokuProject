@@ -1,4 +1,4 @@
-package Sudoku;
+/*package Sudoku;
 
 import javax.swing.*;
 import java.awt.*;
@@ -60,7 +60,7 @@ public class Sudoku extends SudokuGUI{
         }
         test.setSize(400,400);
         test.setVisible(true);
-*/
+
 
         new SudokuGUI();
 
@@ -84,7 +84,7 @@ public class Sudoku extends SudokuGUI{
         }
 
 
-
     }
 
 }
+*/
